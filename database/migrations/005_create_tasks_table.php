@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->string('tarea');
+            $table->string('titulo');
+            $table->text('descripcion');
+            $table->tinyIneger('completado');
             $table->unsignedBigInteger('state_id')->foreignId('state_id');
             $table->unsignedBigInteger('user_id')->foreignId('user_id');
             $table->timestamps();
