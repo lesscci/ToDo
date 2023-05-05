@@ -35,7 +35,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('tasks.store');
     }
 
     /**

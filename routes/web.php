@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('tasks/create', [TaskController::class, 'create'])->name('tasks.create');
-
+Route::get('tasks/store', [TaskController::class, 'store'])->name('tasks.store');
 
 
 require __DIR__.'/auth.php';
