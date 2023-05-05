@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TodoRequest;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -33,9 +34,17 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TodoRequest $request)
     {
-        //
+        Task::create([
+            'title' => $request->title,
+            'descripcion' => $request->descripcion,
+            'completado' => 0
+
+        ]);
+
+        $request->session()->flash('alert-success', 'Tasks creado exitosamente ');
+        return to_route('tasks.index');
     }
 
     /**
@@ -57,7 +66,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        return view('tasks.edit');
     }
 
     /**

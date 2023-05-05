@@ -9,10 +9,21 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form>
+
+                @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                    <form method="post" action="{{ route('tasks.store')}}">
+                        @csrf
                         <div class="form-group">
                             <label class="form-larabel">Título</label>
-                            <input type="email" class="form-control" name="title">
+                            <input type="text" class="form-control" name="title">
                         </div>
 
                         <div class="mb-3">

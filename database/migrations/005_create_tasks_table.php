@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('titulo');
             $table->text('descripcion');
-            $table->tinyIneger('completado');
+            $table->tinyInteger('completado');
             $table->unsignedBigInteger('state_id')->foreignId('state_id');
             $table->unsignedBigInteger('user_id')->foreignId('user_id');
             $table->timestamps();
