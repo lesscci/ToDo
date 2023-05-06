@@ -19,7 +19,9 @@ class TaskController extends Controller
     public function index()
     {
         $task = Task::All();
-        return view('tasks.index', compact('task'));
+        return view('tasks.index', [
+          'tasks' => $task  
+        ]);
     }
 
     /**
@@ -41,23 +43,8 @@ class TaskController extends Controller
      */
     public function store(TasksRequest $request)
     {
-        /* $validatedData = $request->validate([
-            'titulo' => 'required|max:255',
-            'descripcion' => 'required|min:5|max:500',
-            'state_id' => 'required|numeric',
-        ]);
-
-        $tarea = new Task();
-        $tarea->tarea = $validatedData['titulo'];
-        $tarea->user_id =auth()->user()->id;
-        $tarea->state_id = $validatedData['state_id'];
-        $tarea->save();
-
-        return redirect()->route('task.index');*/
-
         $validatedData = $request->validated();
        
-
         Task::create([
             'titulo' => $validatedData['titulo'],
             'descripcion' => $validatedData['descripcion'],
@@ -75,10 +62,16 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function show(Task $task, $id)
+    public function show($id)
     {
-        $tareas = Task::findOrFail($id);
-        return view('tasks.show', compact('tasks'));
+       $task = Task::find($id);
+       if($task) {
+         request()->session()->flash('error', 'Tarea no encontrada');
+            return to_route('tasks.index')->withErrors([
+                'error' => 'No encontrado'
+            ]);
+       }
+        return view('tasks.show', ['task' => $task]);
     }
 
     /**
