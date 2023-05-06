@@ -29,8 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('tasks/index', [TaskController::class, 'index'])->name('tasks.index');
+
 Route::get('tasks/create', [TaskController::class, 'create'])->name('tasks.create');
-Route::get('tasks/store', [TaskController::class, 'store'])->name('tasks.store');
+Route::post('tasks/store', [TaskController::class, 'store'])->name('tasks.store');
+
 
 
 require __DIR__.'/auth.php';

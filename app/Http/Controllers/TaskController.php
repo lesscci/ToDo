@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TasksRequest;
+use App\Models\State;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate;
 
 class TaskController extends Controller
 {
@@ -14,8 +17,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $task= Task::All();
-        return view('task.index',compact('task') );
+        $task = Task::All();
+        return view('tasks.index', compact('task'));
     }
 
     /**
@@ -25,7 +28,8 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('tareas.create');
+        $states = \App\Models\State::pluck('name', 'id')->toArray();
+        return view('tasks.create', compact('states'));
     }
 
     /**
@@ -36,18 +40,20 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'tarea' => 'required|max:255',
+        /* $validatedData = $request->validate([
+            'titulo' => 'required|max:255',
+            'descripcion' => 'required|min:5|max:500',
             'state_id' => 'required|numeric',
         ]);
 
         $tarea = new Task();
-        $tarea->tarea = $validatedData['tarea'];
+        $tarea->tarea = $validatedData['titulo'];
         $tarea->user_id =auth()->user()->id;
         $tarea->state_id = $validatedData['state_id'];
         $tarea->save();
 
-        return redirect()->route('task.index');
+        return redirect()->route('task.index');*/
+        return $request->all();
     }
 
     /**
@@ -59,7 +65,7 @@ class TaskController extends Controller
     public function show(Task $task, $id)
     {
         $tareas = Task::findOrFail($id);
-        return view('tareas.show', compact('tareas'));
+        return view('tasks.show', compact('tasks'));
     }
 
     /**
@@ -71,7 +77,7 @@ class TaskController extends Controller
     public function edit(Task $task, $id)
     {
         $tareas = Task::findOrFail($id);
-        return view('tareas.edit', compact('tareas'));
+        return view('tasks.edit', compact('tasks'));
     }
 
     /**

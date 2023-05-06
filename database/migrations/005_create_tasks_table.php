@@ -15,13 +15,12 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->string('tarea');
-            $table->unsignedBigInteger('state_id')->foreignId('state_id');
-            $table->unsignedBigInteger('user_id')->foreignId('user_id');
+            $table->string('titulo');
+            $table->text('descripcion');
+            $table->enum('states', ['pendiente', 'en_proceso', 'completada'])->default('pendiente');
+            $table->foreignId('state_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
-
-            $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }
