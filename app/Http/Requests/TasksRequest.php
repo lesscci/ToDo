@@ -26,7 +26,7 @@ class TasksRequest extends FormRequest
         return [
             'titulo' => 'required|string',
             'descripcion' => 'required|string|min:5|max:500',
-            'state' => 'required|in:pendiente,en_proceso,completada',
+            'states' => 'required|in:pendiente,en_proceso,completada',
         ];
     }
 }

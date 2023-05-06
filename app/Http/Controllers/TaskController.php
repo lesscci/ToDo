@@ -8,6 +8,7 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate;
 
+
 class TaskController extends Controller
 {
     /**
@@ -28,7 +29,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $states = State::pluck('name', 'id')->toArray();
+        $states = State::pluck('states', 'id')->toArray();
         return view('tasks.create', compact('states'));
     }
 
@@ -38,7 +39,7 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TaskController $request)
+    public function store(TasksRequest $request)
     {
         /* $validatedData = $request->validate([
             'titulo' => 'required|max:255',
@@ -54,13 +55,17 @@ class TaskController extends Controller
 
         return redirect()->route('task.index');*/
 
-        Task::create(['titulo'=> $request->titulo,
-        'descripcion' => $request->descripcion,
-        'state' => $request->state,
-        
-]);
+        $validatedData = $request->validated();
+       
 
-        $request->session()->flash('alert-success', 'Tarea realizada correctamente' );
+        Task::create([
+            'titulo' => $validatedData['titulo'],
+            'descripcion' => $validatedData['descripcion'],
+            'states_id' => 1,
+            'user_id' => auth()->user()->id,
+        ]);
+
+        $request->session()->flash('alert-success', 'Tarea realizada correctamente');
         return to_route('tasks.index');
     }
 

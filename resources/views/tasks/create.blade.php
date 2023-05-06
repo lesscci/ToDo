@@ -25,16 +25,15 @@
                             <label class="form-label">Título</label>
                             <input type="text" class="form-control" name="titulo">
                         </div>
-
                         <div class="mb-3">
                             <label>Descripción</label>
                             <textarea class="form-control" name="descripcion" rows="4" cols="30"></textarea>
                         </div>
                         <div class="mb-3">
                             <label>Estado</label>
-                            <select name="state" class="form-control">
+                            <select name="states" class="form-control">
                                 <option value="pendiente">Pendiente</option>
-                                <option value="en_proceso">En proceso</option>
+                                <option value="en_proceso" selected>En proceso</option>
                                 <option value="completada">Completada</option>
                             </select>
                         </div>

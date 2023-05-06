@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('states', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->enum('states', ['pendiente', 'en_proceso', 'completada'])->default('pendiente');
             $table->timestamps();
         });
     }
