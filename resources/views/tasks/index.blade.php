@@ -8,19 +8,33 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                
+
                 <div class="p-6 text-gray-900">
-                    <form>
-                        <div class="form-group">
-                            <label class="form-larabel">Título</label>
-                            <input type="email" class="form-control" name="title">
-                        </div>
-                        <div class="mb-3">
-                            <label>Descripción</label>
-                            <textarea class="form-control" name="descripcion" rows="4" cols="30"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Actualizar</button>
-                    </form>
+
+                    @if (Session::has('alert-success'))
+
+                    <div class="alert alert-success" role="alert">
+                        {{(Session::get('alert-success'))}}
+                    </div>
+                    @endif
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Título
+                                </th>
+                                <th>
+                                    Descripcion
+                                </th>
+                                <th>
+                                    Estado
+                                </th>
+                                <th>
+                                    Acción
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>

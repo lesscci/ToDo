@@ -28,7 +28,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $states = \App\Models\State::pluck('name', 'id')->toArray();
+        $states = State::pluck('name', 'id')->toArray();
         return view('tasks.create', compact('states'));
     }
 
@@ -38,7 +38,7 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TaskController $request)
     {
         /* $validatedData = $request->validate([
             'titulo' => 'required|max:255',
@@ -53,7 +53,15 @@ class TaskController extends Controller
         $tarea->save();
 
         return redirect()->route('task.index');*/
-        return $request->all();
+
+        Task::create(['titulo'=> $request->titulo,
+        'descripcion' => $request->descripcion,
+        'state' => $request->state,
+        
+]);
+
+        $request->session()->flash('alert-success', 'Tarea realizada correctamente' );
+        return to_route('tasks.index');
     }
 
     /**

@@ -31,14 +31,14 @@
                             <textarea class="form-control" name="descripcion" rows="4" cols="30"></textarea>
                         </div>
                         <div class="mb-3">
-                            <select name="state_id" class="form-control">
-                                @foreach ($states as $id => $name)
-                                <option value="{{ $id }}">{{ $name }}</option>
-                                @endforeach
+                            <label>Estado</label>
+                            <select name="state" class="form-control">
+                                <option value="pendiente">Pendiente</option>
+                                <option value="en_proceso">En proceso</option>
+                                <option value="completada">Completada</option>
                             </select>
-
-
                         </div>
+
 
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
