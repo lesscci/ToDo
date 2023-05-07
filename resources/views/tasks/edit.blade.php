@@ -10,15 +10,33 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 
                 <div class="p-6 text-gray-900">
-                    <form>
+                    <h4>Editar</h4>
+                    <form method="post" action="{{route('tasks.update')}}">
+                    @csrf    
+                    @method('PUT')
+                        <input type="hidden" name="task_id" value="{{$task->id}}">
                         <div class="form-group">
                             <label class="form-larabel">Título</label>
-                            <input type="email" class="form-control" name="title">
+                            <input type="text" class="form-control" name="titulo" value="{{$task->titulo}}">
                         </div>
                         <div class="mb-3">
                             <label>Descripción</label>
-                            <textarea class="form-control" name="descripcion" rows="4" cols="30"></textarea>
+                            <textarea class="form-control" name="descripcion" rows="4" cols="30">
+                            {{$task->descripcion}}"
+                            </textarea>
                         </div>
+                        <div class="mb-3">
+                            <label for="">Estado</label>
+                            <select name="states" class="form-control">
+                                <option disabled selected>
+                                    Seleccione Opcion
+                                </option>
+                                <option value="pendiente">Pendiente</option>
+                                <option value="en_proceso">En proceso</option>
+                                <option value="completada">Completada</option>
+                            </select>
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Actualizar</button>
                     </form>
                 </div>

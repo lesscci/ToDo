@@ -20,7 +20,7 @@ class TaskController extends Controller
     {
         $task = Task::All();
         return view('tasks.index', [
-          'tasks' => $task  
+            'tasks' => $task
         ]);
     }
 
@@ -44,7 +44,7 @@ class TaskController extends Controller
     public function store(TasksRequest $request)
     {
         $validatedData = $request->validated();
-       
+
         Task::create([
             'titulo' => $validatedData['titulo'],
             'descripcion' => $validatedData['descripcion'],
@@ -64,13 +64,13 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-       $task = Task::find($id);
-       if($task) {
-         request()->session()->flash('error', 'Tarea no encontrada');
+        $task = Task::find($id);
+        if (!$task) {
+            request()->session()->flash('error', 'Tarea no encontrada');
             return to_route('tasks.index')->withErrors([
                 'error' => 'No encontrado'
             ]);
-       }
+        }
         return view('tasks.show', ['task' => $task]);
     }
 
@@ -80,10 +80,16 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function edit(Task $task, $id)
+    public function edit($id)
     {
-        $tareas = Task::findOrFail($id);
-        return view('tasks.edit', compact('tasks'));
+        $task = Task::find($id);
+        if (!$task) {
+            request()->session()->flash('error', 'Tarea no encontrada');
+            return to_route('tasks.index')->withErrors([
+                'error' => 'No encontrado'
+            ]);
+        }
+        return view('tasks.edit', ['task' => $task]);
     }
 
     /**
@@ -93,10 +99,30 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(TasksRequest $request)
     {
-        //
+
+        $task = Task::find($request->task_id);
+        if (!$task) {
+            request()->session()->flash('error', 'Tarea no encontrada');
+            return to_route('tasks.index')->withErrors([
+                'error' => 'No encontrado'
+            ]);
+        }
+
+        $task->update([
+            'titulo' => $request->titulo,
+            'descripcion' => $request->descripcion,
+            'states' => $request->states
+        ]);
+
+
+        $request->session()->flash('alert-info', 'Tarea actualizada correctamente');
+        return to_route('tasks.index');
+        
     }
+
+
 
     /**
      * Remove the specified resource from storage.

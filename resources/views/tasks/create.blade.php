@@ -32,8 +32,11 @@
                         <div class="mb-3">
                             <label>Estado</label>
                             <select name="states" class="form-control">
+                                <option disabled selected>
+                                    Seleccione Opcion
+                                </option>
                                 <option value="pendiente">Pendiente</option>
-                                <option value="en_proceso" selected>En proceso</option>
+                                <option value="en_proceso">En proceso</option>
                                 <option value="completada">Completada</option>
                             </select>
                         </div>

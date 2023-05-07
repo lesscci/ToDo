@@ -26,12 +26,20 @@
                         {{(Session::get('alert-success'))}}
                     </div>
                     @endif
+                    @if (Session::has('alert-info'))
+
+                    <div class="alert alert-info" role="alert">
+                        {{(Session::get('alert-info'))}}
+                    </div>
+                    @endif
+
                     @if (Session::has('error'))
 
                     <div class="alert alert-danger" role="alert">
                         {{(Session::get('error'))}}
                     </div>
                     @endif
+
 
                     @if (count($tasks) > 0)
                     <table class="table">
@@ -78,7 +86,7 @@
                                 </td>
                                 <td id="outer">
                                     <a class="inner btn btn-sm btn-success" href="{{route('tasks.show', $task->id )}}">Ver </a>
-                                    <a class="inner btn btn-sm btn-success" href="">Editar </a>
+                                    <a class="inner btn btn-sm btn-success" href="{{route('tasks.edit', $task->id)}}">Editar </a>
                                     <a class=" inner btn btn-sm btn-danger" href="">Borrar </a>
 
 

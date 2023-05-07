@@ -34,6 +34,8 @@ Route::get('tasks/index', [TaskController::class, 'index'])->name('tasks.index')
 Route::get('tasks/create', [TaskController::class, 'create'])->name('tasks.create');
 Route::post('tasks/store', [TaskController::class, 'store'])->name('tasks.store');
 Route::get('tasks/show/{id}', [TaskController::class, 'show'])->name('tasks.show');
+Route::get('tasks/{id}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
+Route::put('tasks/update', [TaskController::class, 'update'])->name('tasks.update');
 
 
 require __DIR__.'/auth.php';
