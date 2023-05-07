@@ -40,6 +40,8 @@
                     </div>
                     @endif
 
+                    <a class="btn btn-sm btn-info" href="{{route('tasks.create')}}"> Crear Tarea</a>
+
 
                     @if (count($tasks) > 0)
                     <table class="table">
@@ -87,12 +89,14 @@
                                 <td id="outer">
                                     <a class="inner btn btn-sm btn-success" href="{{route('tasks.show', $task->id )}}">Ver </a>
                                     <a class="inner btn btn-sm btn-success" href="{{route('tasks.edit', $task->id)}}">Editar </a>
-                                    <a class=" inner btn btn-sm btn-danger" href="">Borrar </a>
+                                    <form method="post" action="{{route('tasks.destroy', $task->id)}}" class="inner">
+                                        @csrf
+                                        @method('DELETE')
 
 
                                     <form action="" class="inner">
                                         <input type="hidden" name="task_id" value="{{$task->id}}">
-                                        <input type="submit" class="btn btn-sm btn-info">
+                                        <input type="submit" class="btn btn-sm btn-danger" value="Delete">
                                     </form>
                                 </td>
                             </tr>

@@ -130,8 +130,19 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Task $task)
+    public function destroy(Request $request )
     {
-        //
+        $task = Task::find($request->task_id);
+        if (!$task) {
+            request()->session()->flash('error', 'Tarea no encontrada');
+            return to_route('tasks.index')->withErrors([
+                'error' => 'No encontrado'
+            ]);
+        }
+
+        $task->delete();
+        
+        $request->session()->flash('alert-success', 'Tarea eliminada correctamente');
+        return to_route('tasks.index');
     }
 }

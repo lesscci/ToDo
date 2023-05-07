@@ -15,14 +15,35 @@ class TaskStateSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('tasks')->insert([
+
+        DB::table('users')->insert([
             [
-                'titulo' => 'Hacer lista de la compra',
-                'descripcion' => 'Compra de la semana',
-                'states_id' => '1',
+                'name' => 'Toni',
+                'email' => 'toni@gmail.com',
+                'password' => 'toni1234',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
         ]);
+
+        $states = ['pendiente', 'en_proceso', 'completada'];
+
+        foreach ($states as $state) {
+            DB::table('states')->insert([
+                'states' => $state
+            ]);
+        }
+        
+        DB::table('tasks')->insert([
+            [
+                'titulo' => 'Hacer lista de la compra',
+                'descripcion' => 'Compra de la semana',
+                'states_id' => 1,
+                'user_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
+        
     }
 }

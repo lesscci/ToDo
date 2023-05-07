@@ -36,6 +36,7 @@ Route::post('tasks/store', [TaskController::class, 'store'])->name('tasks.store'
 Route::get('tasks/show/{id}', [TaskController::class, 'show'])->name('tasks.show');
 Route::get('tasks/{id}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
 Route::put('tasks/update', [TaskController::class, 'update'])->name('tasks.update');
+Route::delete('tasks/destroy', [TaskController::class, 'destroy'])->name('tasks.destroy');
 
 
 require __DIR__.'/auth.php';
